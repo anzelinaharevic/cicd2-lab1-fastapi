@@ -1,5 +1,22 @@
 import pytest
 
+@pytest.mark.parametrize( 
+    "bad_sid", 
+    [ 
+        "BAD123", 
+        "s1234567", 
+        "S123", 
+        "S12345678", 
+    ], 
+) 
+def test_invalid_student_id_returns_422(client, bad_sid): 
+    response = client.post( 
+        "/api/users", 
+        json=user_payload(sid=bad_sid), 
+    ) 
+ 
+    assert response.status_code == 422 
+
 def user_payload( 
     name="Paul", 
     email="paul@atu.ie", 
