@@ -2,10 +2,12 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from sqlalchemy.exc import IntegrityError 
 from sqlalchemy.orm import Session
 from sqlalchemy import select  
- 
+from sqlalchemy import exc
 from app.database import engine, get_db 
 from app.models import Base, UserDB 
 from app.schemas import UserCreate, UserRead 
+import httpx
+from app.product_client import get_product_fetcher
  
 Base.metadata.create_all(bind=engine) 
  
